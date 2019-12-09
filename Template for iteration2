@@ -1,0 +1,78 @@
+from json import dumps
+from flask import Flask, request
+
+APP = Flask(__name__)
+        
+SECRET = 'sempai'
+        
+data = {
+    'users': [],
+    
+}
+
+def get_data():
+    global data
+    return data
+
+def sendSuccess(data):
+    return dumps(data)
+
+def sendError(message):
+    return dumps({
+        '_error' : message,
+    })
+
+def generateToken(username):
+    global SECRET
+    #return 'TheReal' + username
+    encoded =  jwt.encode({'username': username}, SECRET, algorithm= 'HS256')
+    return str(encoded)
+ 
+def hashPassword(password):
+    return hashlib.sha256(password.enconde()).hexdigest()
+ 
+#TheRealhadyn 
+def getUserFromToken(token):
+    global SECRET
+    #return token[7:]
+    decoded =  jwt.decode(token, SECRET, algorithms= ['HS256'])
+    return decoded['username']
+
+@APP.route('/secrets', methods=['GET'])
+def get():
+    if getUserFromToken(request.args.get('token')) is None:
+        return sendError('Invalid token')
+    return sendSuccess({
+        'secrets' : ['I', 'like', 'rats'],
+    })
+
+@APP.route('/register', methods=['POST'])
+def create():
+    data = get_data()
+    username = request.form.get('username')
+    password = request.form.get('password')
+    data.append({
+        'username': username,
+        'password': hashPassword(password),
+    })
+    print(data)
+    return sendSuccess({
+        'token': generateToken(username),
+    })
+
+@APP.route('/login', methods=['UPDATE'])
+def connect():
+    data = get_data()
+    username = request.form.get('username')
+    password = request.form.get('password')
+    for user in data['users']:
+        if user['username'] == username and hashPassword(user['password']) == password:
+            return sendSuccess({
+                'token': generateToken(username),
+            })
+    
+    return sendError("Usernanme or password incorrect")
+
+if __name__ == '__main__':
+    APP.run()
+
