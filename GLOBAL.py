@@ -1,72 +1,37 @@
 import hashlib
-
-from jwt import PyJWT
+import jwt
 import datetime
 
-
-class User:
-    def __init__(self, firstName, lastName, email, password, handle, u_id):
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-        self.password = password
-        self.handle = handle
-        self.u_id = u_id
-
-class PasswordReset:
-    def __init__(self, email, resetCode):
-        self.email = email
-        self.resetCode = resetCode
-
-class Channel:
-    def __init__(self, name, channel_id, is_public, owner):
-        self.name = name
-        self.channel_id = channel_id
-        self.is_public = is_public
-        self.owners = [owner]
-        self.members = [owner] # assume the person creating the channels is automatically a member
-        self.messages = []
-        self.message_id = []
-        self.react_id = []
-        self.message_pinned = []
-        self.standup = None
-        self.standupMsgs = None
-        
-
-    def getOwners(self):
-        return self.owners
-
-data = {
-    'users': [],
-    'validTokens': [],
-    'passwordResets': [],
-    'channels' : [],
+GLOBAL_DATA = {
+    "users" : [],
+    "active_tokens": [],
+    "channels" : []
 }
 
-SECRET = 'abc'
-jwt = PyJWT()
+secret = 'senpai'
 
-def generateToken(email):
-    #global SECRET
-    global jwt
-    encoded = jwt.encode({'email': email}, SECRET, algorithm='HS256')
-    return str(encoded)
+class User:
+    def __init__(self, email, First_name, Lastname):
+        self.email = email
+        self.First_name = First_name
+        self.Lastname = Lastname
+        self.token = 0
+        self.u_id = 0
 
-def getUserFromToken(token):
-    #jwt = PyJWT()
-    #global SECRET
-    global jwt
-    print(token)
-    token = token[2:-1]
-    print(token)
-    decoded = jwt.decode(token.encode(), SECRET, algorithm='HS256')
-    return decoded['email']
+    def add_crypted_password(self, password):
+        self.password = hashlib.sha256(password.encode()).hexdigest() 
 
-def getUIDFromEmail(email):
-    for i in data['users']:
-        if i.email == email:
-            return i.u_id
+    
+def generate_token(user, email):                                            
+    encoded_jwt = jwt.encode({'token': email}, secret, algorithm = 'HS256')
+    user.token = encoded_jwt  
+    global GLOBAL_DATA
+    GLOBAL_DATA["active_tokens"].append(encoded_jwt)                      
+    return encoded_jwt                              
 
-def hashPassword(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+def generate_user_id(user):
+    # only takes in a user class as parameter
+    no_of_users = len(GLOBAL_DATA["users"])
+    user.u_id = no_of_users
+    return no_of_users
 
