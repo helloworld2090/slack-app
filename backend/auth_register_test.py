@@ -1,8 +1,6 @@
 import pytest
 
 from auth_register import auth_register
-import sys
-sys.path.append('..')
 from GLOBAL import GLOBAL_DATA, User, generate_token, generate_user_id
 
 def test_auth_register_valid():

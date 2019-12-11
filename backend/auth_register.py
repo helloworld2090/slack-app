@@ -1,7 +1,5 @@
 import jwt
 import re
-import sys
-sys.path.append('..')
 
 from GLOBAL import GLOBAL_DATA , User, generate_token, generate_user_id
 
@@ -26,7 +24,7 @@ def auth_register(email, password, name_first, name_last):
     
     rgx = r'^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
-    if(re.search(rgx, email)):
+    if(re.search(rgx, email)) :
         new_user = User(email, name_first, name_last)
         new_user.add_crypted_password(password)
 
@@ -34,8 +32,8 @@ def auth_register(email, password, name_first, name_last):
         u_id = generate_user_id(new_user)
         GLOBAL_DATA["users"].append(new_user)
 
-    else:
-        raise ValueError
+    elif not (re.search(rgx, email)):
+        raise ValueError("email not valid")
     print(GLOBAL_DATA)
     """
     attrs = vars(new_user)
