@@ -28,6 +28,7 @@ def auth_register(email, password, name_first, name_last):
         #print(f"{(re.search(rgx, email))} and without braces {re.search(rgx, email)}")
         new_user = User(email, name_first, name_last)
         new_user.add_crypted_password(password)
+        new_user.add_reset_code(new_user.email)
 
         token = generate_token(new_user, email)
         u_id = generate_user_id(new_user)

@@ -1,5 +1,5 @@
 from auth_login import auth_login
-from auth_passwordreset_request import auth_password_reset
+from auth_passwordreset_request import auth_password_reset_req
 from auth_register import auth_register
 import pytest
 
@@ -9,10 +9,10 @@ res1 = auth_login('bob.ma77i@gmail.com', 'valid_password1')
 
 def test_auth_passwordreset_request_valid_user():
     # Test a valid email belonging to a registered user
-    assert auth_password_reset('bob.ma77i@gmail.com') == {}
+    assert auth_password_reset_req('bob.ma77i@gmail.com') == {}
 
 def test_auth_passwordreset_request_non_user():
     # Test a valid email that does not belong to a registered user
     with pytest.raises(ValueError):
-        auth_password_reset('non_user@email.com')
+        auth_password_reset_req('non_user@email.com')
 
