@@ -16,7 +16,7 @@ class User:
         self.First_name = First_name
         self.Lastname = Lastname
         self.token = 0
-        self.u_id = 0
+        self.u_id = 0 
 
     def add_crypted_password(self, password):
         self.password = hashlib.sha256(password.encode()).hexdigest() 
