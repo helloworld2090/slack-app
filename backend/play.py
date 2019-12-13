@@ -1,15 +1,5 @@
-class User:
-    def __init__(self, Lastname):
-        self.Lastname = Lastname
-        self.d 
+def sumf(num):
+    return num + num
 
-
-    def place(self,num):
-        self.num = num
-    
-
-
-if __name__ == "__main__":
-    t = User("ma")
-    t.place(5)
-    print(t.place)
+ls = [sumf(4), sumf(5)]
+print(ls)

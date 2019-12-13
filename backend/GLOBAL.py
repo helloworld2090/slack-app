@@ -34,10 +34,10 @@ class Channel():
         self.name = name
         self.is_public = is_public
         self.messages = []
-        self.members = [name]
+        self.members = [get_user_from_token(token)]
         #add channel_id
         # owners by email
-        self.owners = [name]
+        self.owners = get_user_from_token(token)
         
     def add_channel_id(self):
         channel_no = 0
@@ -67,14 +67,31 @@ def generate_user_id(user):
 
 def get_user_from_token(token): 
     decoded = jwt.decode(token, secret, algorithms = ['HS256'])
-    #decoded_email = decoded['token']
-    print(decoded_email)
+    decoded_email = decoded['token']
+    #print(decoded_email)
     for users in GLOBAL_DATA["users"]:
         if users.email == decoded_email:
-            print("ture")
+            #print("ture")
             return users.First_name
 
+# given u_id as input - return the first name of the u_id
 def get_user_from_u_id(u_id): 
     for users in GLOBAL_DATA["users"]:
         if users.u_id == u_id:
             return users.First_name
+
+# given u_id as input - checks if the u_id is valid in the system
+def check_valid_uid(u_id):
+    if 0 <= u_id and u_id < len(GLOBAL_DATA["users"]):
+        return True
+    else:
+        return False 
+
+def get_channel_from_ch_id(c_id): 
+    for channels in GLOBAL_DATA["channels"]:
+        if c_id == channels.id:
+            return channels
+
+def clear_all():
+    pass
+    
