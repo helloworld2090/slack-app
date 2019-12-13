@@ -17,3 +17,4 @@ def auth_password_reset(reset_code, new_password):
 
     users.add_crypted_password(new_password)
     return {}
+    
