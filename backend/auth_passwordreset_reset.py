@@ -8,7 +8,7 @@ def auth_password_reset(reset_code, new_password):
         if reset_code == users.reset_code:
             valid_reset_code = True
             break
-    
+
     if valid_reset_code == False:
         raise ValueError
 

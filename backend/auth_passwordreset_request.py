@@ -2,7 +2,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import hashlib
-from GLOBAL import GLOBAL_DATA , User, generate_token, generate_user_id
+from GLOBAL import (GLOBAL_DATA , User, generate_token, 
+generate_user_id)
 
 def auth_password_reset_req(user_email):
     
