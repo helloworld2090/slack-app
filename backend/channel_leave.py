@@ -17,4 +17,5 @@ def channel_leave(token, Channel_id):
                 channels.members.remove(user)
                 return {}
             else:
-                raise AccessError
+                raise AccessError 
+                

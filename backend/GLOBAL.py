@@ -37,7 +37,7 @@ class Channel():
         self.members = [get_user_from_token(token)]
         #add channel_id
         # owners by email
-        self.owners = get_user_from_token(token)
+        self.owners = [get_user_from_token(token)]
         
     def add_channel_id(self):
         channel_no = 0
