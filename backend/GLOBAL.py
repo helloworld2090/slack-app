@@ -140,6 +140,7 @@ def is_admin_or_owner_token(token):
 
 def re_calibrate_msgID():
     index = 0
+    # changes ms_id from both data and channel object
     for messages in GLOBAL_DATA["messages"]:
         messages.message_id = index
         index += 1 
