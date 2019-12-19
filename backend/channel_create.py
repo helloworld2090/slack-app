@@ -7,7 +7,6 @@ def channel_create(token, name, is_public):
         raise ValueError
 
     new_channel = Channel(token, name, is_public)
-    new_channel.add_channel_id()
     GLOBAL_DATA["channels"].append(new_channel)
     return {"channel_id" : new_channel.id}
 

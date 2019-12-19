@@ -33,6 +33,7 @@ class User:
 class Channel():
     def __init__ (self, token, name, is_public):
         self.name = name
+        self.id = add_channel_id()
         self.is_public = is_public
         self.messages = []
         self.members = [get_user_from_token(token)]
@@ -40,12 +41,7 @@ class Channel():
         # owners by email
         self.owners = [get_user_from_token(token)]
         self.messages = []
-        
-    def add_channel_id(self):
-        channel_no = 0
-        for channels in GLOBAL_DATA["channels"]:
-            channel_no += 1
-        self.id = channel_no
+
 
 class Message:
     def __init__ (self, token, message):
@@ -55,6 +51,12 @@ class Message:
         self.react_id = 0
         self.u_id = get_u_id_from_token(token)
         self.time_created = datetime.datetime.now()
+
+def add_channel_id():
+    channel_no = 0
+    for channels in GLOBAL_DATA["channels"]:
+        channel_no += 1
+    return channel_no
 
 
 def generate_handle():
@@ -138,6 +140,17 @@ def is_admin_or_owner_token(token):
             return True
     return False
 
+# returns a list of channel ids that the user is an owner of
+def owner_of_these_channels(token):             
+    owner_ch_list = []                          
+    user = get_user_from_token(token)
+
+    for channels in data["channels"]:
+        if user in channels.owners:
+            owner_ch_list.append(channels.id)
+    
+    return owner_ch_list
+
 def re_calibrate_msgID():
     index = 0
     # changes ms_id from both data and channel object
@@ -145,7 +158,5 @@ def re_calibrate_msgID():
         messages.message_id = index
         index += 1 
 
-
 def clear_all():
     pass
-    
