@@ -1,4 +1,12 @@
-ls = ["df", "a"]
-f = "a"
-ls.remove(f)
-print(f)
+from datetime import datetime
+import time
+print(type(datetime.now()))
+
+now = time.time()
+print(now)
+future = now + 1
+while time.time() < future:
+    pass
+
+print("10 seconds has passed")
+

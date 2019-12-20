@@ -22,6 +22,7 @@ class User:
         # 2: admin
         # 1: member
         self.handle = generate_handle()
+        self.handle_name = ""
         
 
     def add_crypted_password(self, password):
@@ -95,7 +96,7 @@ def get_u_id_from_token(token):
     for users in GLOBAL_DATA["users"]:
         if users.email == decoded_email:
             #print("ture")
-            return users.First_name
+            return users.u_id
 
 # given u_id as input - return the first name of the u_id
 def get_user_from_u_id(u_id): 
