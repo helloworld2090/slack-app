@@ -1,12 +1,15 @@
-from datetime import datetime
 import time
-print(type(datetime.now()))
+from datetime import datetime
 
-now = time.time()
-print(now)
-future = now + 1
-while time.time() < future:
-    pass
+def counter(num):
+    now = time.time()
+    future = now + num
+    print(now)
+    num = 0
+    while time.time() <= future:
+        print("YEET")
+        num += 1
 
-print("10 seconds has passed")
+    print(future)
+    print(datetime.now())
 

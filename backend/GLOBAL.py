@@ -9,6 +9,8 @@ GLOBAL_DATA = {
     "messages": []
 }
 
+standup_lst = []
+
 secret = 'senpai'
 
 class User:
@@ -42,6 +44,7 @@ class Channel():
         # owners by email
         self.owners = [get_user_from_token(token)]
         self.messages = []
+        self.standup_active = False
 
 
 class Message:

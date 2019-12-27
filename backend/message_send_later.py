@@ -1,6 +1,6 @@
 from GLOBAL import (GLOBAL_DATA , User, Channel, generate_token, 
 generate_user_id, get_user_from_token, get_user_from_u_id, Message)
-from time import time
+from time 
 from Error import AccessError
 from message_send import message_send                     
 

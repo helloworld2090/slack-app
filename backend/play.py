@@ -1,3 +1,4 @@
+"""
 class superman():
     def __init__(self, num):
         self.num = num
@@ -32,5 +33,15 @@ if __name__ == "__main__":
     del(up)
 
     #print(up.lower[0].num1)
-    print(dict1["test"][0].num1)
+    print(dict1["test"][0].num1) """
+
+import time
+from play2 import counter
+print("before ===") 
+
+counter(0.02)
+
+print("after")  
+
+
 
